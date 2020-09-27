@@ -5,11 +5,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-  width: 80vw;
+  width: 90vw;
 }
 
 .container > .scrollWrapper {
   height: 100%;
+  scroll-behavior: smooth;
   width: 100%;
   overflow-x: scroll;
 }
@@ -23,6 +24,6 @@
 
 .secretScroll > .secretSection {
   height: 100%;
-  width: 40vw;
+  width: 90vw;
   position: relative;
 }

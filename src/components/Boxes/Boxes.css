@@ -1,12 +1,21 @@
 .boxesSection {
   height: 100%;
-  width: 50%;
+  width: 100%;
   position: absolute;
   left: 50%;
   border: solid 1px black;
   z-index: 2;
-
   pointer-events: none;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.middleBox {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  height: 100%;
+  color: white;
+  pointer-events: all;
 }
