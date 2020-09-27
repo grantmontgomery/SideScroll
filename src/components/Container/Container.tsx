@@ -13,6 +13,14 @@ export const Container: React.FC = () => {
   let greenScroll: HTMLElement | null = null;
   let blueScroll: HTMLElement | null = null;
 
+  let ElementObject: { [key: number]: null | HTMLElement }[] = [];
+
+  const randomArray: number[] = [1, 2, 3];
+
+  ElementObject = randomArray.map((elem) => ({ [elem]: null }));
+
+  console.log(ElementObject);
+
   const observer: React.MutableRefObject<IntersectionObserver> = React.useRef(
     new IntersectionObserver(
       (entries) => {
