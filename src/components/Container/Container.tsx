@@ -19,8 +19,6 @@ export const Container: React.FC = () => {
 
   ElementObject = randomArray.map((elem) => ({ [elem]: null }));
 
-  console.log(ElementObject);
-
   const observer: React.MutableRefObject<IntersectionObserver> = React.useRef(
     new IntersectionObserver(
       (entries) => {
@@ -63,6 +61,15 @@ export const Container: React.FC = () => {
     // }
     // if (greenFocus) {
     //   newObserver.observe(greenFocus);
+
+    ElementObject.forEach((foo, index) => {
+      const newElement = document.getElementById(`sensor${index}`);
+      foo[index] = newElement;
+      if (newElement) {
+        return newObserver.observe(newElement);
+      }
+    });
+
     redScroll = document.getElementById("red");
     greenScroll = document.getElementById("green");
     blueScroll = document.getElementById("blue");

@@ -1,0 +1,6 @@
+.sensorSquare {
+  height: 100%;
+  width: 45vw;
+  position: relative;
+  border: solid 1px black;
+}
