@@ -1,2 +1,12 @@
-.box {
+.boxesSection {
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  left: 50%;
+  border: solid 1px black;
+  z-index: 2;
+
+  pointer-events: none;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

@@ -6,10 +6,15 @@
   transform: translate(-50%, -50%);
   position: absolute;
   width: 80vw;
+}
+
+.container > .scrollWrapper {
+  height: 100%;
+  width: 100%;
   overflow-x: scroll;
 }
 
-.container > .secretScroll {
+.scrollWrapper > .secretScroll {
   height: 100%;
   width: fit-content;
   flex-flow: row nowrap;
