@@ -5,9 +5,13 @@ import "./Container.css";
 export const Container: React.FC = () => {
   const [state, setState] = React.useState({ color: "black" });
 
-  const redScroll: React.MutableRefObject<any> = React.useRef();
-  const greenScroll: React.MutableRefObject<any> = React.useRef(null);
-  const blueScroll: React.MutableRefObject<any> = React.useRef(null);
+  // const redScroll: React.MutableRefObject<any> = React.useRef();
+  // const greenScroll: React.MutableRefObject<any> = React.useRef();
+  // const blueScroll: React.MutableRefObject<any> = React.useRef();
+
+  let redScroll: HTMLElement | null = null;
+  let greenScroll: HTMLElement | null = null;
+  let blueScroll: HTMLElement | null = null;
 
   const observer: React.MutableRefObject<IntersectionObserver> = React.useRef(
     new IntersectionObserver(
@@ -17,15 +21,15 @@ export const Container: React.FC = () => {
         return entries.forEach((entry) => {
           const { target, intersectionRatio } = entry;
           switch (target) {
-            case document.getElementById("red"):
+            case redScroll:
               return intersectionRatio === 1
                 ? setState({ color: "red" })
                 : null;
-            case document.getElementById("green"):
+            case greenScroll:
               return intersectionRatio === 1
                 ? setState({ color: "green" })
                 : null;
-            case document.getElementById("blue"):
+            case blueScroll:
               return intersectionRatio === 1
                 ? setState({ color: "blue" })
                 : null;
@@ -40,18 +44,30 @@ export const Container: React.FC = () => {
   );
 
   React.useEffect(() => {
+    // const redFocus = redScroll.current;
+    // const blueFocus = blueScroll.current;
+    // const greenFocus = greenScroll.current;
+    // if (redFocus) {
+    //   newObserver.observe(redFocus);
+    // }
+    // if (blueFocus) {
+    //   newObserver.observe(blueFocus);
+    // }
+    // if (greenFocus) {
+    //   newObserver.observe(greenFocus);
+    redScroll = document.getElementById("red");
+    greenScroll = document.getElementById("green");
+    blueScroll = document.getElementById("blue");
     const newObserver = observer.current;
-    const redFocus = redScroll.current;
-    const blueFocus = blueScroll.current;
-    const greenFocus = greenScroll.current;
-    if (redFocus) {
-      newObserver.observe(redFocus);
+
+    if (redScroll) {
+      newObserver.observe(redScroll);
     }
-    if (blueFocus) {
-      newObserver.observe(blueFocus);
+    if (blueScroll) {
+      newObserver.observe(blueScroll);
     }
-    if (greenFocus) {
-      newObserver.observe(greenFocus);
+    if (greenScroll) {
+      newObserver.observe(greenScroll);
     }
   }, []);
 
@@ -60,9 +76,9 @@ export const Container: React.FC = () => {
       <Boxes color={state.color}></Boxes>
       <div className="scrollWrapper">
         <div className="secretScroll" id="secretScroll">
-          <div className="secretSection" ref={redScroll} id="red"></div>
-          <div className="secretSection" ref={greenScroll} id="green"></div>
-          <div ref={blueScroll} id="blue" className="secretSection"></div>
+          <div className="secretSection" id="red"></div>
+          <div className="secretSection" id="green"></div>
+          <div id="blue" className="secretSection"></div>
           <div className="secretSection"></div>
           <div className="secretSection"></div>
           <div className="secretSection"></div>
