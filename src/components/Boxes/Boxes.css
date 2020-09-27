@@ -7,15 +7,21 @@
   z-index: 2;
   pointer-events: none;
   top: 50%;
+  overflow: hidden;
   transform: translate(-50%, -50%);
 }
 
-.middleBox {
+.boxesFlex {
+  display: flex;
+  width: fit-content;
+  height: 100%;
+  transition: 250ms ease-out;
+  flex-flow: row nowrap;
+}
+
+.box {
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+  width: 20vh;
   height: 100%;
   color: white;
-  pointer-events: all;
 }

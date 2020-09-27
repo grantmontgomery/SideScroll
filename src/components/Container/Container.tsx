@@ -18,15 +18,15 @@ export const Container: React.FC = () => {
           const { target, intersectionRatio } = entry;
           switch (target) {
             case document.getElementById("red"):
-              return intersectionRatio >= 0.5
+              return intersectionRatio === 1
                 ? setState({ color: "red" })
                 : null;
             case document.getElementById("green"):
-              return intersectionRatio >= 0.5
+              return intersectionRatio === 1
                 ? setState({ color: "green" })
                 : null;
             case document.getElementById("blue"):
-              return intersectionRatio >= 0.5
+              return intersectionRatio === 1
                 ? setState({ color: "blue" })
                 : null;
           }
@@ -60,26 +60,11 @@ export const Container: React.FC = () => {
       <Boxes color={state.color}></Boxes>
       <div className="scrollWrapper">
         <div className="secretScroll" id="secretScroll">
+          <div className="secretSection" ref={redScroll} id="red"></div>
+          <div className="secretSection" ref={greenScroll} id="green"></div>
+          <div ref={blueScroll} id="blue" className="secretSection"></div>
           <div className="secretSection"></div>
           <div className="secretSection"></div>
-          <div
-            ref={redScroll}
-            style={{ border: "solid 1px red" }}
-            className="secretSection"
-            id="red"
-          ></div>
-          <div
-            ref={greenScroll}
-            id="green"
-            style={{ border: "solid 1px green" }}
-            className="secretSection"
-          ></div>
-          <div
-            ref={blueScroll}
-            style={{ border: "solid 1px blue" }}
-            className="secretSection"
-            id="blue"
-          ></div>
           <div className="secretSection"></div>
           <div className="secretSection"></div>
           <div className="secretSection"></div>

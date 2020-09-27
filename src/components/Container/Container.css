@@ -24,6 +24,7 @@
 
 .secretScroll > .secretSection {
   height: 100%;
-  width: 90vw;
+  width: 45vw;
   position: relative;
+  border: solid 1px black;
 }
