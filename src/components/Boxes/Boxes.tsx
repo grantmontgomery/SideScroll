@@ -8,8 +8,12 @@ export const Boxes: React.FC<{
   const [state, setState] = React.useState<{ slide: string }>({ slide: "" });
 
   React.useEffect(() => {
-    setState({ slide: `${15 - 20 * squareIndex}vh` });
-  }, [squareIndex]);
+    if (window.innerHeight > window.innerWidth) {
+      setState({ slide: `${15 - 20 * squareIndex}vh` });
+    } else {
+      setState({ slide: `calc(calc(45vw - 10vh) - ${squareIndex * 20}vh)` });
+    }
+  }, [squareIndex, window]);
   return (
     <section className="boxesSection">
       <div
@@ -19,10 +23,10 @@ export const Boxes: React.FC<{
         {typeof list === "object"
           ? list.map((item, index) => {
               const determineRotation: () => string = () => {
-                if (index === squareIndex) return "rotateY(0deg)";
+                if (index === squareIndex) return " rotateY(0deg)";
                 return index > squareIndex
-                  ? "rotateY(45deg)"
-                  : "rotateY(-45deg)";
+                  ? " rotateY(45deg)"
+                  : " rotateY(-45deg)";
               };
 
               return (
@@ -31,21 +35,9 @@ export const Boxes: React.FC<{
                   style={{
                     transform: determineRotation(),
                     pointerEvents: squareIndex === index ? "none" : "all",
-                    objectFit: "contain",
                   }}
                 >
-                  <img
-                    src={item.urls.small}
-                    alt=""
-                    style={{
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      display: "block",
-                      position: "relative",
-                      height: "100%",
-                      width: "auto",
-                    }}
-                  />
+                  <img src={item.urls.small} alt="" />
                 </div>
               );
             })

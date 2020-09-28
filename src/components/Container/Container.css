@@ -6,6 +6,7 @@
   transform: translate(-50%, -50%);
   position: absolute;
   width: 90vw;
+  overflow: hidden;
 }
 
 .container > .scrollWrapper {
@@ -19,6 +20,7 @@
   background: gray;
   width: 1vh;
   border-radius: 1vh;
+  cursor: pointer;
 }
 
 .opacityBar {
@@ -32,6 +34,7 @@
 .scrollWrapper::-webkit-scrollbar-thumb {
   background: red;
   width: 1vh;
+  cursor: pointer;
   border-radius: 1vh;
 }
 
