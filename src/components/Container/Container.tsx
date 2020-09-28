@@ -52,6 +52,7 @@ export const Container: React.FC = () => {
 
   return (
     <div className="container">
+      <div className="opacityBar" id="opacityBar1"></div>
       <Boxes list={randomArray} squareIndex={state.squareIndex}></Boxes>
       <div className="scrollWrapper">
         <div className="secretScroll" id="secretScroll">
@@ -60,6 +61,7 @@ export const Container: React.FC = () => {
           ))}
         </div>
       </div>
+      <div className="opacityBar" id="opacityBar2"></div>
     </div>
   );
 };

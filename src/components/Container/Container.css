@@ -1,5 +1,5 @@
 .container {
-  border: solid 1px black;
+  border: solid 1px transparent;
   height: 20vh;
   top: 50%;
   left: 50%;
@@ -15,6 +15,26 @@
   overflow-x: scroll;
 }
 
+.scrollWrapper::-webkit-scrollbar {
+  background: gray;
+  width: 1vh;
+  border-radius: 1vh;
+}
+
+.opacityBar {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  top: -5%;
+  height: 85%;
+}
+
+.scrollWrapper::-webkit-scrollbar-thumb {
+  background: red;
+  width: 1vh;
+  border-radius: 1vh;
+}
+
 .scrollWrapper > .secretScroll {
   height: 100%;
   width: fit-content;
@@ -27,4 +47,25 @@
   width: 45vw;
   position: relative;
   border: solid 1px black;
+}
+
+.opacityBar {
+  height: 80%;
+  width: 20%;
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#opacityBar2 {
+  float: right;
+  right: -2px;
+  background: linear-gradient(to right, transparent, white);
+}
+#opacityBar1 {
+  float: left;
+  z-index: 3;
+  left: -2px;
+  background: linear-gradient(to left, transparent, white);
 }
