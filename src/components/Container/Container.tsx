@@ -1,21 +1,18 @@
+import { objectExpression } from "@babel/types";
+import { element } from "prop-types";
 import * as React from "react";
+import { SensorSquare } from "../SensorSquare";
 import { Boxes } from "../Boxes";
 import "./Container.css";
 
 export const Container: React.FC = () => {
-  const [state, setState] = React.useState({ color: "black" });
-
-  // const redScroll: React.MutableRefObject<any> = React.useRef();
-  // const greenScroll: React.MutableRefObject<any> = React.useRef();
-  // const blueScroll: React.MutableRefObject<any> = React.useRef();
-
-  let redScroll: HTMLElement | null = null;
-  let greenScroll: HTMLElement | null = null;
-  let blueScroll: HTMLElement | null = null;
+  const [state, setState] = React.useState<{ squareIndex: number }>({
+    squareIndex: 0,
+  });
 
   let ElementObject: { [key: number]: null | HTMLElement }[] = [];
 
-  const randomArray: number[] = [1, 2, 3];
+  const randomArray: number[] = [0, 1, 2, 3, 4, 5, 6];
 
   ElementObject = randomArray.map((elem) => ({ [elem]: null }));
 
@@ -24,22 +21,17 @@ export const Container: React.FC = () => {
       (entries) => {
         console.log(entries);
 
-        return entries.forEach((entry) => {
-          const { target, intersectionRatio } = entry;
-          switch (target) {
-            case redScroll:
-              return intersectionRatio === 1
-                ? setState({ color: "red" })
-                : null;
-            case greenScroll:
-              return intersectionRatio === 1
-                ? setState({ color: "green" })
-                : null;
-            case blueScroll:
-              return intersectionRatio === 1
-                ? setState({ color: "blue" })
-                : null;
-          }
+        return ElementObject.forEach((Element, index) => {
+          console.log(entries);
+          return entries.forEach((entry) => {
+            const { target, intersectionRatio } = entry;
+            switch (target) {
+              case document.getElementById(`sensor${index}`):
+                return intersectionRatio === 1
+                  ? setState({ squareIndex: index })
+                  : null;
+            }
+          });
         });
       },
       {
@@ -62,6 +54,8 @@ export const Container: React.FC = () => {
     // if (greenFocus) {
     //   newObserver.observe(greenFocus);
 
+    const newObserver = observer.current;
+
     ElementObject.forEach((foo, index) => {
       const newElement = document.getElementById(`sensor${index}`);
       foo[index] = newElement;
@@ -70,35 +64,25 @@ export const Container: React.FC = () => {
       }
     });
 
-    redScroll = document.getElementById("red");
-    greenScroll = document.getElementById("green");
-    blueScroll = document.getElementById("blue");
-    const newObserver = observer.current;
-
-    if (redScroll) {
-      newObserver.observe(redScroll);
-    }
-    if (blueScroll) {
-      newObserver.observe(blueScroll);
-    }
-    if (greenScroll) {
-      newObserver.observe(greenScroll);
-    }
+    // return ElementObject.forEach((foo, index) => {
+    //   const newElement = document.getElementById(`sensor${index}`);
+    //   foo[index] = newElement;
+    //   if (newElement) {
+    //     return newObserver.unobserve(newElement);
+    //   }
+    // });
   }, []);
+
+  console.log(ElementObject);
 
   return (
     <div className="container">
-      <Boxes color={state.color}></Boxes>
+      <Boxes list={randomArray} index={state.squareIndex}></Boxes>
       <div className="scrollWrapper">
         <div className="secretScroll" id="secretScroll">
-          <div className="secretSection" id="red"></div>
-          <div className="secretSection" id="green"></div>
-          <div id="blue" className="secretSection"></div>
-          <div className="secretSection"></div>
-          <div className="secretSection"></div>
-          <div className="secretSection"></div>
-          <div className="secretSection"></div>
-          <div className="secretSection"></div>
+          {randomArray.map((item, index) => (
+            <SensorSquare index={index}></SensorSquare>
+          ))}
         </div>
       </div>
     </div>

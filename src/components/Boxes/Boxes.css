@@ -22,6 +22,7 @@
 .box {
   position: relative;
   width: 20vh;
+  pointer-events: none;
   height: 100%;
-  color: white;
+  border: solid 1px red;
 }
