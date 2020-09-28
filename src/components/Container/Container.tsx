@@ -5,17 +5,16 @@ import { SensorSquare } from "../SensorSquare";
 import { Boxes } from "../Boxes";
 import "./Container.css";
 
-export const Container: React.FC = () => {
+export const Container: React.FC<{
+  results: { [key: string]: any }[];
+}> = ({ results }) => {
   const [state, setState] = React.useState<{ squareIndex: number }>({
     squareIndex: 0,
   });
 
   let ElementObject: { [key: number]: null | HTMLElement }[] = [];
 
-  const randomArray: number[] = [0, 1, 2, 3];
-
-  ElementObject = randomArray.map((elem) => ({ [elem]: null }));
-
+  // ElementObject = randomArray.map((elem) => ({ [elem]: null }));
   const observer: React.MutableRefObject<IntersectionObserver> = React.useRef(
     new IntersectionObserver(
       (entries) => {
@@ -41,8 +40,12 @@ export const Container: React.FC = () => {
   React.useEffect(() => {
     const newObserver = observer.current;
 
+    ElementObject = results.map((elem, index) => ({ [index]: null }));
+
     ElementObject.forEach((foo, index) => {
-      const newElement = document.getElementById(`sensor${index}`);
+      const newElement: HTMLElement | null = document.getElementById(
+        `sensor${index}`
+      );
       foo[index] = newElement;
       if (newElement) {
         return newObserver.observe(newElement);
@@ -53,10 +56,10 @@ export const Container: React.FC = () => {
   return (
     <div className="container">
       <div className="opacityBar" id="opacityBar1"></div>
-      <Boxes list={randomArray} squareIndex={state.squareIndex}></Boxes>
+      <Boxes list={results} squareIndex={state.squareIndex}></Boxes>
       <div className="scrollWrapper">
         <div className="secretScroll" id="secretScroll">
-          {randomArray.map((item, index) => (
+          {results.map((item, index) => (
             <SensorSquare index={index}></SensorSquare>
           ))}
         </div>

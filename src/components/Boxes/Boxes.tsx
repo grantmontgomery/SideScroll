@@ -1,10 +1,10 @@
 import * as React from "react";
 import "./Boxes.css";
 
-export const Boxes: React.FC<{ squareIndex: number; list: number[] }> = ({
-  squareIndex,
-  list,
-}) => {
+export const Boxes: React.FC<{
+  squareIndex: number;
+  list: { [key: string]: any }[] | string;
+}> = ({ squareIndex, list }) => {
   const [state, setState] = React.useState<{ slide: string }>({ slide: "" });
 
   React.useEffect(() => {
@@ -16,23 +16,40 @@ export const Boxes: React.FC<{ squareIndex: number; list: number[] }> = ({
         className="boxesFlex"
         style={{ transform: `translate(${state.slide})` }}
       >
-        {list.map((item, index) => {
-          const determineRotation: () => string = () => {
-            if (index === squareIndex) return "rotateY(0deg)";
-            return index > squareIndex ? "rotateY(45deg)" : "rotateY(-45deg)";
-          };
+        {typeof list === "object"
+          ? list.map((item, index) => {
+              const determineRotation: () => string = () => {
+                if (index === squareIndex) return "rotateY(0deg)";
+                return index > squareIndex
+                  ? "rotateY(45deg)"
+                  : "rotateY(-45deg)";
+              };
 
-          return (
-            <div
-              className="box"
-              style={{
-                background: "black",
-                transform: determineRotation(),
-                pointerEvents: squareIndex === index ? "none" : "all",
-              }}
-            ></div>
-          );
-        })}
+              return (
+                <div
+                  className="box"
+                  style={{
+                    transform: determineRotation(),
+                    pointerEvents: squareIndex === index ? "none" : "all",
+                    objectFit: "contain",
+                  }}
+                >
+                  <img
+                    src={item.urls.small}
+                    alt=""
+                    style={{
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      display: "block",
+                      position: "relative",
+                      height: "100%",
+                      width: "auto",
+                    }}
+                  />
+                </div>
+              );
+            })
+          : null}
       </div>
     </section>
   );
